@@ -26,6 +26,7 @@ time, mark, audio, video {
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
+	box-sizing:border-box;
 }
 body {
 	line-height: 1;
@@ -44,4 +45,79 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+html {font-size: 1rem;}
+
+body {
+  background-color: white;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #333;
+}
+
+p {margin-bottom: 1.3rem;}
+
+h1, h2, h3, h4 {
+  margin: 1.414em 0 0.5rem;
+  font-weight: inherit;
+  line-height: 1.2;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3.157rem;
+}
+
+h2 {font-size: 2.369rem;}
+
+h3 {font-size: 1.777rem;}
+
+h4 {font-size: 1.333rem;}
+
+small, .font_small {font-size: 0.75rem;}
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+
+body{
+	font-family: 'Ubuntu Mono', monospace;
+}
+
+.site-header{
+	text-align:center;
+}
+.site-header,
+main{
+	padding:2rem;
+	max-width:720px;
+	display:block;
+	margin:0 auto;
+}
+section{
+	width:100%;
+	text-align:center;
+}
+figure{
+	width:40px;
+	height:40px;
+	background-color:white;
+	display:inline-block;
+	margin:0 auto;
+	line-height:0;
+	
+	
+	border-radius:150%;
+	border:solid 2px black;
+	position:relative;
+	padding:.5rem;
+	box-sizing:content-box;
+}
+figure a{
+	display:block;
+	position: absolute;
+	width:40px;
+	height:40px;
+	background-size:100%;
+	background-repeat:no-repeat;
 }
