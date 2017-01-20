@@ -1,6 +1,6 @@
 {
   "name": "wordpress-social-share",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "Hate using plugins to create those social sharing buttons? Append thi into your theme and be free.",
   "main": "wpss.js",
   "scripts": {

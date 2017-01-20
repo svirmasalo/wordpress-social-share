@@ -79,6 +79,12 @@ function initEventHandlers(){
 		$(this).blur();
 		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
 	});
+
+	$('#wpss-linkedin a, #wpss-pinterest a').css('cursor','not-allowed');
+	$('#wpss-linkedin a, #wpss-pinterest a').on('click',function(e){
+		e.preventDefault();
+	});
+
 }
 
 
