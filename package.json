@@ -1,0 +1,34 @@
+{
+  "name": "wordpress-social-share",
+  "version": "0.1.0",
+  "description": "Hate using plugins to create those social sharing buttons? Append thi into your theme and be free.",
+  "main": "wpss.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svirmasalo/wordpress-social-share.git"
+  },
+  "keywords": [
+    "social",
+    "networks",
+    "sharing",
+    "social",
+    "media"
+  ],
+  "author": "Sampo Virmasalo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/svirmasalo/wordpress-social-share/issues"
+  },
+  "homepage": "https://github.com/svirmasalo/wordpress-social-share#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "watch": "^1.0.1"
+  }
+}
