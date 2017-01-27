@@ -1,7 +1,7 @@
 console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
 
 
-function formLinks(){
+function formLinks(placeInDom){
 
 	let links = {
 		'facebook':null,
@@ -93,7 +93,7 @@ function formLinks(){
 	links.linkedin = twitterLinkElement;
 	links.pinterest = pinterestLinkElement;
 
-	createWpssBlock(links);
+	createWpssBlock(links,placeInDom);
 	
 }
 
@@ -101,7 +101,7 @@ function formLinks(){
 * Form renderable element
 */
 
-function createWpssBlock(links){
+function createWpssBlock(links, placeInDom){
 	/**
 	* Structure:
 	* section.wpss-wrap
@@ -143,9 +143,14 @@ function createWpssBlock(links){
 	/**
 	* Append created block into body
 	*/
-	const target = document.getElementsByTagName('MAIN')[0];
-	//target.append(container);
-	$(container).insertAfter('main header');
+	if(typeof placeInDom === 'string'){
+		const target = document.getElementsByTagName(placeInDom)[0];
+		target.append(container);
+	}else{
+		$(container).insertAfter(placeInDom);
+	}
+
+	
 
 
 
@@ -218,8 +223,12 @@ function initEventHandlers(){
 }
 
 
+/**
+* Call wpss from here or from document
+*/
 
+/*
 $(document).ready(function(){
-	formLinks();
-	//createWpssBlock();
+	formLinks($('main header')); //Element to append this into
 });
+*/

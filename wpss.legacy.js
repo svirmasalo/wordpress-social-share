@@ -2,7 +2,7 @@
 
 console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
 
-function formLinks() {
+function formLinks(placeInDom) {
 
 	var links = {
 		'facebook': null,
@@ -84,14 +84,14 @@ function formLinks() {
 	links.linkedin = twitterLinkElement;
 	links.pinterest = pinterestLinkElement;
 
-	createWpssBlock(links);
+	createWpssBlock(links, placeInDom);
 }
 
 /**
 * Form renderable element
 */
 
-function createWpssBlock(links) {
+function createWpssBlock(links, placeInDom) {
 	/**
  * Structure:
  * section.wpss-wrap
@@ -154,9 +154,12 @@ function createWpssBlock(links) {
 		}
 	}
 
-	var target = document.getElementsByTagName('MAIN')[0];
-	//target.append(container);
-	$(container).insertAfter('main header');
+	if (typeof placeInDom === 'string') {
+		var target = document.getElementsByTagName(placeInDom)[0];
+		target.append(container);
+	} else {
+		$(container).insertAfter(placeInDom);
+	}
 
 	styleButtons('local', 'black');
 }
@@ -222,7 +225,12 @@ function initEventHandlers() {
 	});
 }
 
-$(document).ready(function () {
-	formLinks();
-	//createWpssBlock();
+/**
+* Call wpss from here or from document
+*/
+
+/*
+$(document).ready(function(){
+	formLinks($('main header')); //Element to append this into
 });
+*/
