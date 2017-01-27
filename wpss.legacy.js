@@ -1,12 +1,5 @@
 'use strict';
 
-/**
-* 1 - styleButtons (document.ready)
-* 2 - formLinks (styleButtons)
-* 3 - initEventHandlers (formLinks)
-* 4 - ....
-*/
-
 console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
 
 function formLinks() {
@@ -28,7 +21,6 @@ function formLinks() {
 	};
 
 	var twitter_shareUrlQuery = 'https://twitter.com/share?url=' + encodeURIComponent(twitterMetaData.dataUrl) + '&text=' + encodeURIComponent(twitterMetaData.dataText);
-	$('#wpss-twitter a').attr('href', twitter_shareUrlQuery);
 
 	/**
  * Facebook
@@ -45,21 +37,19 @@ function formLinks() {
 		'image': $('head meta[property="og:image"]').last().attr('content')
 	};
 	var facebook_shareUrlQuery = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(facebookMetaData.url) + '&t=' + encodeURIComponent(facebookMetaData.title);
-	$('#wpss-facebook a').attr('href', facebook_shareUrlQuery);
 	/**
  * Pinterest
  */
-	var pinterestAttributes = {
-		'type': 'text/javascript',
-		'charset': 'UTF-8',
-		'src': 'https://assets/pinterest.com/js/pinmarklet.js'
+	var pinterestUrlParameters = {
+		pinUrl: facebookMetaData.url,
+		pinImg: facebookMetaData.image,
+		pinDesc: facebookMetaData.title
 	};
-	var pinterestElement = document.createElement('script');
-	$(pinterestElement).attr(pinterestAttributes);
-	document.body.appendChild(pinterestElement);
+	var pinterestShareAttributes = {
+		'data-do-pin': 'buttonPin'
+	};
 
-	var pinterest_shareUrlQuery = "https://www.pinterest.com/pin/create/button/";
-
+	var pinterest_shareUrlQuery = "https://www.pinterest.com/pin/create/button/?" + "url=" + encodeURIComponent(pinterestUrlParameters.pinUrl) + "&media=" + encodeURIComponent(pinterestUrlParameters.pinImg) + "&description=" + encodeURIComponent(pinterestUrlParameters.pinDesc);
 	/**
  * Linkedin
  */
@@ -71,12 +61,28 @@ function formLinks() {
 	};
 	var linkedinShareBaseUrl = 'https://www.linkedin.com/shareArticle?mini=true&';
 	var linkedin_shareUrlQuery = linkedinShareBaseUrl + '&url=' + encodeURIComponent(linkedinMetaData.url) + '&title=' + encodeURIComponent(linkedinMetaData.title) + '&summary=' + encodeURIComponent(linkedinMetaData.summary) + '&source=' + encodeURIComponent(linkedinMetaData.source);
-	$('#wpss-linkedin a').attr('href', linkedin_shareUrlQuery);
 
-	links.facebook = facebook_shareUrlQuery;
-	links.twitter = twitter_shareUrlQuery;
-	links.linkedin = linkedin_shareUrlQuery;
-	links.pinterest = pinterest_shareUrlQuery;
+	var createLinkElement = function createLinkElement(link, attr) {
+
+		var thisLink = document.createElement('A');
+
+		if (attr != '' && attr != null) {
+			$(thisLink).attr(attr);
+		}
+
+		thisLink.href = link;
+		return thisLink;
+	};
+
+	var facebookLinkElement = new createLinkElement(facebook_shareUrlQuery, null);
+	var linkedinkLinkElement = new createLinkElement(linkedin_shareUrlQuery, null);
+	var twitterLinkElement = new createLinkElement(twitter_shareUrlQuery, null);
+	var pinterestLinkElement = new createLinkElement(pinterest_shareUrlQuery, pinterestShareAttributes);
+
+	links.facebook = facebookLinkElement;
+	links.twitter = linkedinkLinkElement;
+	links.linkedin = twitterLinkElement;
+	links.pinterest = pinterestLinkElement;
 
 	createWpssBlock(links);
 }
@@ -104,25 +110,20 @@ function createWpssBlock(links) {
 	var figures = [];
 
 	var figure = function figure(network) {
-		thisFig = document.createElement('FIGURE');
+		var thisFig = document.createElement('FIGURE');
 		thisFig.id = 'wpss-' + network;
 		figures.push(thisFig);
 		return thisFig;
 	};
-	var href = function href(link) {
-		thisLink = document.createElement('A');
-		thisLink.href = link;
-		return thisLink;
-	};
-	fbFigure = new figure('facebook');
-	twitteFigure = new figure('twitter');
-	linkedinFigure = new figure('linkedin');
-	pinterestFigure = new figure('pinterest');
+	var fbFigure = new figure('facebook');
+	var twitteFigure = new figure('twitter');
+	var linkedinFigure = new figure('linkedin');
+	var pinterestFigure = new figure('pinterest');
 
-	fbFigure.append(href(links.facebook));
-	twitteFigure.append(href(links.twitter));
-	linkedinFigure.append(href(links.linkedin));
-	pinterestFigure.append(href(links.pinterest));
+	fbFigure.append(links.facebook);
+	twitteFigure.append(links.twitter);
+	linkedinFigure.append(links.linkedin);
+	pinterestFigure.append(links.pinterest);
 
 	var _iteratorNormalCompletion = true;
 	var _didIteratorError = false;
@@ -132,7 +133,6 @@ function createWpssBlock(links) {
 		for (var _iterator = figures[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 			var f = _step.value;
 
-			console.log(f);
 			container.append(f);
 		}
 
@@ -162,6 +162,9 @@ function createWpssBlock(links) {
 }
 
 function styleButtons(iconSrc, color) {
+	/**
+ * Just a few style things if you are not using font awesome
+ */
 
 	var spriteUrl = '../images/some-logosprite-' + color + '-full.png';
 	var spriteNegaUrl = '../images/some-logosprite-' + color + '-full.png';
@@ -217,16 +220,6 @@ function initEventHandlers() {
 		$(this).blur();
 		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
 	});
-
-	/**
- * Disable unwanted
- */
-	/*
- $('#wpss-pinterest a').css('cursor','not-allowed');
- $('#wpss-pinterest a').on('click',function(e){
- 	e.preventDefault();
- });
- */
 }
 
 $(document).ready(function () {

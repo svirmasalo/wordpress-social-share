@@ -1,10 +1,3 @@
-/**
-* 1 - styleButtons (document.ready)
-* 2 - formLinks (styleButtons)
-* 3 - initEventHandlers (formLinks)
-* 4 - ....
-*/
-
 console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
 
 
@@ -27,7 +20,6 @@ function formLinks(){
 	}
 
 	let twitter_shareUrlQuery = 'https://twitter.com/share?url=' + encodeURIComponent(twitterMetaData.dataUrl) + '&text=' + encodeURIComponent(twitterMetaData.dataText);
-	$('#wpss-twitter a').attr('href',twitter_shareUrlQuery);
 
 	/**
 	* Facebook
@@ -44,21 +36,22 @@ function formLinks(){
 		'image' : $('head meta[property="og:image"]').last().attr('content')
 	}
 	let facebook_shareUrlQuery = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(facebookMetaData.url)+'&t='+encodeURIComponent(facebookMetaData.title);
-	$('#wpss-facebook a').attr('href',facebook_shareUrlQuery);
 	/**
 	* Pinterest
 	*/
-	const pinterestAttributes = {
-		'type':'text/javascript',
-		'charset':'UTF-8',
-		'src' : 'https://assets/pinterest.com/js/pinmarklet.js'
+	const pinterestUrlParameters ={
+		pinUrl : facebookMetaData.url,
+		pinImg : facebookMetaData.image,
+		pinDesc : facebookMetaData.title
 	}
-	const pinterestElement = document.createElement('script');
-	$(pinterestElement).attr(pinterestAttributes);
-	document.body.appendChild(pinterestElement);
+	const pinterestShareAttributes = {
+		'data-do-pin':'buttonPin',
+	}
 
-	let pinterest_shareUrlQuery = "https://www.pinterest.com/pin/create/button/";
-
+	let pinterest_shareUrlQuery = "https://www.pinterest.com/pin/create/button/?"+
+		"url="+encodeURIComponent(pinterestUrlParameters.pinUrl) +
+		"&media="+encodeURIComponent(pinterestUrlParameters.pinImg) +
+		"&description="+encodeURIComponent(pinterestUrlParameters.pinDesc);
 	/**
 	* Linkedin
 	*/
@@ -75,18 +68,34 @@ function formLinks(){
 		'&title=' + encodeURIComponent(linkedinMetaData.title) +
 		'&summary=' + encodeURIComponent(linkedinMetaData.summary) +
 		'&source=' + encodeURIComponent(linkedinMetaData.source);
-	$('#wpss-linkedin a').attr('href',linkedin_shareUrlQuery);
 
-	links.facebook = facebook_shareUrlQuery;
-	links.twitter = twitter_shareUrlQuery;
-	links.linkedin = linkedin_shareUrlQuery;
-	links.pinterest = pinterest_shareUrlQuery;
 
+
+	let createLinkElement = function(link,attr){
+
+		let thisLink = document.createElement('A');
+
+		if (attr != '' && attr != null){
+			$(thisLink).attr(attr);
+		}
+
+		thisLink.href = link;
+		return thisLink;
+	}
+
+	let facebookLinkElement = new createLinkElement(facebook_shareUrlQuery,null);
+	let linkedinkLinkElement = new createLinkElement(linkedin_shareUrlQuery,null);
+	let twitterLinkElement = new createLinkElement(twitter_shareUrlQuery,null);
+	let pinterestLinkElement = new createLinkElement(pinterest_shareUrlQuery,pinterestShareAttributes);
+
+	links.facebook = facebookLinkElement;
+	links.twitter = linkedinkLinkElement;
+	links.linkedin = twitterLinkElement;
+	links.pinterest = pinterestLinkElement;
 
 	createWpssBlock(links);
 	
 }
-
 
 /**
 * Form renderable element
@@ -112,28 +121,22 @@ function createWpssBlock(links){
 	let figures = [];
 
 	let figure = function(network){
-		thisFig = document.createElement('FIGURE');
+		let thisFig = document.createElement('FIGURE');
 		thisFig.id = 'wpss-' + network;
 		figures.push(thisFig);
 		return thisFig;
 	}
-	let href = function(link){
-		thisLink = document.createElement('A');
-		thisLink.href = link;
-		return thisLink;
-	}
-	fbFigure = new figure('facebook');
-	twitteFigure = new figure('twitter');
-	linkedinFigure = new figure('linkedin');
-	pinterestFigure = new figure('pinterest');
+	let fbFigure = new figure('facebook');
+	let twitteFigure = new figure('twitter');
+	let linkedinFigure = new figure('linkedin');
+	let pinterestFigure = new figure('pinterest');
 
-	fbFigure.append(href(links.facebook));
-	twitteFigure.append(href(links.twitter));
-	linkedinFigure.append(href(links.linkedin));
-	pinterestFigure.append(href(links.pinterest));
+	fbFigure.append(links.facebook);
+	twitteFigure.append(links.twitter);
+	linkedinFigure.append(links.linkedin);
+	pinterestFigure.append(links.pinterest);
 
 	for(let f of figures){
-		console.log(f);
 		container.append(f);
 	}
 
@@ -150,9 +153,10 @@ function createWpssBlock(links){
 
 }
 
-
 function styleButtons(iconSrc, color){
-
+	/**
+	* Just a few style things if you are not using font awesome
+	*/ 
 
 	const spriteUrl = '../images/some-logosprite-'+ color + '-full.png';
 	const spriteNegaUrl = '../images/some-logosprite-'+ color + '-full.png';
@@ -188,8 +192,6 @@ function styleButtons(iconSrc, color){
 
 }
 
-
-
 function initEventHandlers(){
 
 	$('#wpss-twitter a').on('click',function(e){
@@ -213,16 +215,6 @@ function initEventHandlers(){
 		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
 	});	
 
-	/**
-	* Disable unwanted
-	*/
-	/*
-	$('#wpss-pinterest a').css('cursor','not-allowed');
-	$('#wpss-pinterest a').on('click',function(e){
-		e.preventDefault();
-	});
-	*/
-
 }
 
 
@@ -230,5 +222,4 @@ function initEventHandlers(){
 $(document).ready(function(){
 	formLinks();
 	//createWpssBlock();
-	
 });
