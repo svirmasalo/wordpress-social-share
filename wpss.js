@@ -2,8 +2,6 @@ console.log('WordPress Social Share active : https://github.com/svirmasalo/wordp
 
 
 function formLinks(placeInDom,iconSrc){
-	console.log(iconSrc);
-
 	let links = {
 		'facebook':null,
 		'twitter':null,
@@ -95,7 +93,6 @@ function formLinks(placeInDom,iconSrc){
 	links.pinterest = pinterestLinkElement;
 
 	createWpssBlock(links,placeInDom, iconSrc);
-	
 }
 
 /**
@@ -151,12 +148,11 @@ function createWpssBlock(links, placeInDom, iconSrc){
 		$(container).insertAfter(placeInDom);
 	}
 
-	styleButtons(iconSrc,'black',);
+	styleButtons(iconSrc,'black');
 
 }
 
 function styleButtons(iconSrc, color){
-	console.log(iconSrc);
 	/**
 	* Just a few style things if you are not using font awesome
 	*/ 

@@ -3,8 +3,6 @@
 console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
 
 function formLinks(placeInDom, iconSrc) {
-	console.log(iconSrc);
-
 	var links = {
 		'facebook': null,
 		'twitter': null,
@@ -166,7 +164,6 @@ function createWpssBlock(links, placeInDom, iconSrc) {
 }
 
 function styleButtons(iconSrc, color) {
-	console.log(iconSrc);
 	/**
  * Just a few style things if you are not using font awesome
  */
