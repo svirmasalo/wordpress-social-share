@@ -1,7 +1,8 @@
 console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
 
 
-function formLinks(placeInDom){
+function formLinks(placeInDom,iconSrc){
+	console.log(iconSrc);
 
 	let links = {
 		'facebook':null,
@@ -93,7 +94,7 @@ function formLinks(placeInDom){
 	links.linkedin = twitterLinkElement;
 	links.pinterest = pinterestLinkElement;
 
-	createWpssBlock(links,placeInDom);
+	createWpssBlock(links,placeInDom, iconSrc);
 	
 }
 
@@ -101,7 +102,7 @@ function formLinks(placeInDom){
 * Form renderable element
 */
 
-function createWpssBlock(links, placeInDom){
+function createWpssBlock(links, placeInDom, iconSrc){
 	/**
 	* Structure:
 	* section.wpss-wrap
@@ -150,15 +151,12 @@ function createWpssBlock(links, placeInDom){
 		$(container).insertAfter(placeInDom);
 	}
 
-	
-
-
-
-	styleButtons('local','black');
+	styleButtons(iconSrc,'black',);
 
 }
 
 function styleButtons(iconSrc, color){
+	console.log(iconSrc);
 	/**
 	* Just a few style things if you are not using font awesome
 	*/ 
