@@ -12,10 +12,10 @@ function formLinks(placeInDom,iconSrc){
 	*/
 	const twitterMetaData = {
 		'dataSize' : 'large',
-		'card' : $('head meta[name="twitter:card"]').attr('content'),
-		'dataText' : $('head meta[name="twitter:description"]').attr('content'),
-		'title' : $('head meta[name="twitter:image"]').attr('content'),
-		'dataUrl' : $('head meta[property="og:url"]').attr('content'),
+		'card' : jQuery('head meta[name="twitter:card"]').attr('content'),
+		'dataText' : jQuery('head meta[name="twitter:description"]').attr('content'),
+		'title' : jQuery('head meta[name="twitter:image"]').attr('content'),
+		'dataUrl' : jQuery('head meta[property="og:url"]').attr('content'),
 	}
 
 	let twitter_shareUrlQuery = 'https://twitter.com/share?url=' + encodeURIComponent(twitterMetaData.dataUrl) + '&text=' + encodeURIComponent(twitterMetaData.dataText);
@@ -24,15 +24,15 @@ function formLinks(placeInDom,iconSrc){
 	* Facebook
 	*/
 	const facebookMetaData = {
-		'locale' : $('head meta[property="og:locale"]').attr('content'),
-		'localeAlt' : $('head meta[property="og:locale:alternate"]').attr('content'),
-		'type' : $('head meta[property="og:type"]').attr('content'),
-		'title' : $('head meta[property="og:title"]').attr('content'),
-		'desc' : $('head meta[property="og:description"]').attr('content'),
-		'url' : $('head meta[property="og:url"]').attr('content'),
-		'siteName' : $('head meta[property="og:site_name"]').attr('content'),
+		'locale' : jQuery('head meta[property="og:locale"]').attr('content'),
+		'localeAlt' : jQuery('head meta[property="og:locale:alternate"]').attr('content'),
+		'type' : jQuery('head meta[property="og:type"]').attr('content'),
+		'title' : jQuery('head meta[property="og:title"]').attr('content'),
+		'desc' : jQuery('head meta[property="og:description"]').attr('content'),
+		'url' : jQuery('head meta[property="og:url"]').attr('content'),
+		'siteName' : jQuery('head meta[property="og:site_name"]').attr('content'),
 		// HOX! note that 'last()' -method. It makes sure that the explicitly set image is used
-		'image' : $('head meta[property="og:image"]').last().attr('content')
+		'image' : jQuery('head meta[property="og:image"]').last().attr('content')
 	}
 	let facebook_shareUrlQuery = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(facebookMetaData.url)+'&t='+encodeURIComponent(facebookMetaData.title);
 	/**
@@ -58,7 +58,7 @@ function formLinks(placeInDom,iconSrc){
 		'url' : facebookMetaData.url,
 		'title' : facebookMetaData.title,
 		'summary' : facebookMetaData.desc /*+ ' ' + facebookMetaData.image*/,
-		'source' : $('head title').html()
+		'source' : jQuery('head title').html()
 	}
 	const linkedinShareBaseUrl = 'https://www.linkedin.com/shareArticle?mini=true&';
 	let linkedin_shareUrlQuery = 
@@ -75,7 +75,7 @@ function formLinks(placeInDom,iconSrc){
 		let thisLink = document.createElement('A');
 
 		if (attr != '' && attr != null){
-			$(thisLink).attr(attr);
+			jQuery(thisLink).attr(attr);
 		}
 
 		thisLink.href = link;
@@ -145,7 +145,7 @@ function createWpssBlock(links, placeInDom, iconSrc){
 		const target = document.getElementsByTagName(placeInDom)[0];
 		target.append(container);
 	}else{
-		$(container).insertAfter(placeInDom);
+		jQuery(container).insertAfter(placeInDom);
 	}
 
 	styleButtons(iconSrc,'black');
@@ -159,7 +159,7 @@ function styleButtons(iconSrc, color){
 
 	const spriteUrl = '../images/some-logosprite-'+ color + '-full.png';
 	const spriteNegaUrl = '../images/some-logosprite-'+ color + '-full.png';
-	const buttonSize = $('#wpss-wrap figure').width();
+	const buttonSize = jQuery('#wpss-wrap figure').width();
 
 	const spritePositions = {
 		'twitter' : 'center 0',
@@ -169,21 +169,21 @@ function styleButtons(iconSrc, color){
 	};
 
 	if (iconSrc == 'local'){
-		$('#wpss-wrap figure a').each(function(k,v){
-			$(this).css('background-image','url(' + spriteUrl + ')');
+		jQuery('#wpss-wrap figure a').each(function(k,v){
+			jQuery(this).css('background-image','url(' + spriteUrl + ')');
 		});
 
-		$('#wpss-twitter a').css('background-position',spritePositions.twitter);
-		$('#wpss-linkedin a').css('background-position',spritePositions.linkedin);
-		$('#wpss-facebook a').css('background-position',spritePositions.facebook);
-		$('#wpss-pinterest a').css('background-position',spritePositions.pinterest);
+		jQuery('#wpss-twitter a').css('background-position',spritePositions.twitter);
+		jQuery('#wpss-linkedin a').css('background-position',spritePositions.linkedin);
+		jQuery('#wpss-facebook a').css('background-position',spritePositions.facebook);
+		jQuery('#wpss-pinterest a').css('background-position',spritePositions.pinterest);
 	}
 	if (iconSrc == 'fa'){
 		
-		$('#wpss-twitter a').html('<i class="fa fa-twitter fa-lg"></i>').attr('href','https://twitter.com/share?');
-		$('#wpss-linkedin a').html('<i class="fa fa-linkedin fa-lg"></i>');
-		$('#wpss-facebook a').html('<i class="fa fa-facebook fa-lg"></i>');
-		$('#wpss-pinterest a').html('<i class="fa fa-pinterest fa-lg"></i>');		
+		jQuery('#wpss-twitter a').html('<i class="fa fa-twitter fa-lg"></i>').attr('href','https://twitter.com/share?');
+		jQuery('#wpss-linkedin a').html('<i class="fa fa-linkedin fa-lg"></i>');
+		jQuery('#wpss-facebook a').html('<i class="fa fa-facebook fa-lg"></i>');
+		jQuery('#wpss-pinterest a').html('<i class="fa fa-pinterest fa-lg"></i>');		
 		
 	}
 
@@ -193,25 +193,25 @@ function styleButtons(iconSrc, color){
 
 function initEventHandlers(){
 
-	$('#wpss-twitter a').on('click',function(e){
+	jQuery('#wpss-twitter a').on('click',function(e){
 		e.preventDefault();
-		$(this).blur();
-		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
+		jQuery(this).blur();
+		window.open(jQuery(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + (jQuery(window).innerWidth() - 700) / 2);
 	});
-	$('#wpss-facebook a').on('click',function(e){
+	jQuery('#wpss-facebook a').on('click',function(e){
 		e.preventDefault();
-		$(this).blur();
-		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
+		jQuery(this).blur();
+		window.open(jQuery(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + (jQuery(window).innerWidth() - 700) / 2);
 	});
-	$('#wpss-pinterest a').on('click',function(e){
+	jQuery('#wpss-pinterest a').on('click',function(e){
 		e.preventDefault();
-		$(this).blur();
-		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
+		jQuery(this).blur();
+		window.open(jQuery(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + (jQuery(window).innerWidth() - 700) / 2);
 	});
-	$('#wpss-linkedin a').on('click',function(e){
+	jQuery('#wpss-linkedin a').on('click',function(e){
 		e.preventDefault();
-		$(this).blur();
-		window.open($(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + ($(window).innerWidth() - 700) / 2);
+		jQuery(this).blur();
+		window.open(jQuery(this).attr('href'), 'targetWindow', "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=300,top=200,left=" + (jQuery(window).innerWidth() - 700) / 2);
 	});	
 
 }
@@ -222,7 +222,7 @@ function initEventHandlers(){
 */
 
 /*
-$(document).ready(function(){
-	formLinks($('main header')); //Element to append this into
+jQuery(document).ready(function(){
+	formLinks(jQuery('main header')); //Element to append this into
 });
 */
