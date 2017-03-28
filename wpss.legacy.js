@@ -115,12 +115,12 @@ function createWpssBlock(links, placeInDom, iconSrc) {
 		return thisFig;
 	};
 	var fbFigure = new figure('facebook');
-	var twitteFigure = new figure('twitter');
+	var twitterFigure = new figure('twitter');
 	var linkedinFigure = new figure('linkedin');
 	var pinterestFigure = new figure('pinterest');
 
 	fbFigure.append(links.facebook);
-	twitteFigure.append(links.twitter);
+	twitterFigure.append(links.twitter);
 	linkedinFigure.append(links.linkedin);
 	pinterestFigure.append(links.pinterest);
 

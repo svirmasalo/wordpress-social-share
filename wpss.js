@@ -125,12 +125,12 @@ function createWpssBlock(links, placeInDom, iconSrc){
 		return thisFig;
 	}
 	let fbFigure = new figure('facebook');
-	let twitteFigure = new figure('twitter');
+	let twitterFigure = new figure('twitter');
 	let linkedinFigure = new figure('linkedin');
 	let pinterestFigure = new figure('pinterest');
 
 	fbFigure.append(links.facebook);
-	twitteFigure.append(links.twitter);
+	twitterFigure.append(links.twitter);
 	linkedinFigure.append(links.linkedin);
 	pinterestFigure.append(links.pinterest);
 
