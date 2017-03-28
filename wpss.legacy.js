@@ -79,8 +79,8 @@ function formLinks(placeInDom, iconSrc) {
 	var pinterestLinkElement = new createLinkElement(pinterest_shareUrlQuery, pinterestShareAttributes);
 
 	links.facebook = facebookLinkElement;
-	links.twitter = linkedinkLinkElement;
-	links.linkedin = twitterLinkElement;
+	links.twitter = twitterLinkElement;
+	links.linkedin = linkedinkLinkElement;
 	links.pinterest = pinterestLinkElement;
 
 	createWpssBlock(links, placeInDom, iconSrc);
