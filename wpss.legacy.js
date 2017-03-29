@@ -119,10 +119,10 @@ function createWpssBlock(links, placeInDom, iconSrc) {
 	var linkedinFigure = new figure('linkedin');
 	var pinterestFigure = new figure('pinterest');
 
-	fbFigure.append(links.facebook);
-	twitterFigure.append(links.twitter);
-	linkedinFigure.append(links.linkedin);
-	pinterestFigure.append(links.pinterest);
+	jQuery(fbFigure).append(links.facebook);
+	jQuery(twitterFigure).append(links.twitter);
+	jQuery(linkedinFigure).append(links.linkedin);
+	jQuery(pinterestFigure).append(links.pinterest);
 
 	var _iteratorNormalCompletion = true;
 	var _didIteratorError = false;
@@ -132,7 +132,7 @@ function createWpssBlock(links, placeInDom, iconSrc) {
 		for (var _iterator = figures[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 			var f = _step.value;
 
-			container.append(f);
+			jQuery(container).append(f);
 		}
 
 		/**
@@ -155,7 +155,7 @@ function createWpssBlock(links, placeInDom, iconSrc) {
 
 	if (typeof placeInDom === 'string') {
 		var target = document.getElementsByTagName(placeInDom)[0];
-		target.append(container);
+		jQuery(target).append(container);
 	} else {
 		jQuery(container).insertAfter(placeInDom);
 	}

@@ -129,13 +129,13 @@ function createWpssBlock(links, placeInDom, iconSrc){
 	let linkedinFigure = new figure('linkedin');
 	let pinterestFigure = new figure('pinterest');
 
-	fbFigure.append(links.facebook);
-	twitterFigure.append(links.twitter);
-	linkedinFigure.append(links.linkedin);
-	pinterestFigure.append(links.pinterest);
+	jQuery(fbFigure).append(links.facebook);
+	jQuery(twitterFigure).append(links.twitter);
+	jQuery(linkedinFigure).append(links.linkedin);
+	jQuery(pinterestFigure).append(links.pinterest);
 
 	for(let f of figures){
-		container.append(f);
+		jQuery(container).append(f);
 	}
 
 	/**
@@ -143,7 +143,7 @@ function createWpssBlock(links, placeInDom, iconSrc){
 	*/
 	if(typeof placeInDom === 'string'){
 		const target = document.getElementsByTagName(placeInDom)[0];
-		target.append(container);
+		jQuery(target).append(container);
 	}else{
 		jQuery(container).insertAfter(placeInDom);
 	}
