@@ -7,7 +7,7 @@ You check the demo from [here](http://svirmasalo.fi/code/wordpress-social-share/
 ## Usage
 - Download or clone repository to the folder structure you are working on
 - Include wpss.js OR wpss.legacy.js to your html
-- Append elements into your document by inserting following line at the end of your document: `formLinks('<element>','<source>');`. <element> ie. 'body' & <source> either 'fa' for font awesome or 'local'
+- Append elements into your document by inserting following line at the end of your document: `formLinks('<element>','<source>');`. `<element>` ie. 'body' & `<source>` either 'fa' for font awesome or 'local'
 - Style with css or JavaScript
 
 ### Notes for usage
