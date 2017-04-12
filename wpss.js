@@ -134,8 +134,13 @@ function createWpssBlock(links, placeInDom, iconSrc){
 	jQuery(linkedinFigure).append(links.linkedin);
 	jQuery(pinterestFigure).append(links.pinterest);
 
-	for(let f of figures){
-		jQuery(container).append(f);
+	try {
+		for(let f of figures){
+			jQuery(container).append(f);
+		}
+		throw 'wpss-works fine with this browser';
+	}catch(e){
+		logMyErrors(e);
 	}
 
 	/**
@@ -216,7 +221,9 @@ function initEventHandlers(){
 
 }
 
-
+function logMyErrors(error){
+	console.log(error);
+}
 /**
 * Call wpss from here or from document
 */

@@ -124,35 +124,40 @@ function createWpssBlock(links, placeInDom, iconSrc) {
 	jQuery(linkedinFigure).append(links.linkedin);
 	jQuery(pinterestFigure).append(links.pinterest);
 
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
-
 	try {
-		for (var _iterator = figures[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-			var f = _step.value;
+		var _iteratorNormalCompletion = true;
+		var _didIteratorError = false;
+		var _iteratorError = undefined;
 
-			jQuery(container).append(f);
-		}
-
-		/**
-  * Append created block into body
-  */
-	} catch (err) {
-		_didIteratorError = true;
-		_iteratorError = err;
-	} finally {
 		try {
-			if (!_iteratorNormalCompletion && _iterator.return) {
-				_iterator.return();
+			for (var _iterator = figures[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+				var f = _step.value;
+
+				jQuery(container).append(f);
 			}
+		} catch (err) {
+			_didIteratorError = true;
+			_iteratorError = err;
 		} finally {
-			if (_didIteratorError) {
-				throw _iteratorError;
+			try {
+				if (!_iteratorNormalCompletion && _iterator.return) {
+					_iterator.return();
+				}
+			} finally {
+				if (_didIteratorError) {
+					throw _iteratorError;
+				}
 			}
 		}
+
+		throw 'wpss-works fine with this browser';
+	} catch (e) {
+		logMyErrors(e);
 	}
 
+	/**
+ * Append created block into body
+ */
 	if (typeof placeInDom === 'string') {
 		var target = document.getElementsByTagName(placeInDom)[0];
 		jQuery(target).append(container);
@@ -224,6 +229,9 @@ function initEventHandlers() {
 	});
 }
 
+function logMyErrors(error) {
+	console.log(error);
+}
 /**
 * Call wpss from here or from document
 */
