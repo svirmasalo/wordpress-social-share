@@ -1,4 +1,4 @@
-console.log('WordPress Social Share active : https://github.com/svirmasalo/wordpress-social-share');
+console.log('WordPress Social Share v.1.0.0 active : https://github.com/svirmasalo/wordpress-social-share');
 
 
 function formLinks(placeInDom,iconSrc){
